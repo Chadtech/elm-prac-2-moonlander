@@ -1,0 +1,50 @@
+Elm.Thrusters = Elm.Thrusters || {};
+Elm.Thrusters.make = function (_elm) {
+   "use strict";
+   _elm.Thrusters = _elm.Thrusters || {};
+   if (_elm.Thrusters.values) return _elm.Thrusters.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Ship = Elm.Ship.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var deltaAngular = function (s) {
+      var t = s.thrusters;
+      var lb = -0.1 * $Basics.toFloat(t.leftBack);
+      var lf = 0.1 * $Basics.toFloat(t.leftFront);
+      var rb = 0.1 * $Basics.toFloat(t.rightBack);
+      var rf = -0.1 * $Basics.toFloat(t.rightFront);
+      return lb + lf + rb + rf;
+   };
+   var deltaX = function (s) {
+      var sin$ = $Basics.sin($Basics.degrees(s.a));
+      var cos$ = $Basics.cos($Basics.degrees(s.a));
+      var t = s.thrusters;
+      var main = -2.5 * sin$ * $Basics.toFloat(t.main);
+      var lb = -0.1 * sin$ * $Basics.toFloat(t.leftBack);
+      var lf = 0.1 * sin$ * $Basics.toFloat(t.leftFront);
+      var rb = -0.1 * sin$ * $Basics.toFloat(t.rightBack);
+      var rf = 0.1 * sin$ * $Basics.toFloat(t.rightFront);
+      var ls = -0.1 * cos$ * $Basics.toFloat(t.leftSide);
+      var rs = 0.1 * cos$ * $Basics.toFloat(t.rightSide);
+      return ls + lb + lf + main + rf + rb + rs;
+   };
+   var deltaY = function (s) {
+      var sin$ = $Basics.sin($Basics.degrees(s.a));
+      var cos$ = $Basics.cos($Basics.degrees(s.a));
+      var t = s.thrusters;
+      var main = 2.5 * cos$ * $Basics.toFloat(t.main);
+      var lb = 0.1 * cos$ * $Basics.toFloat(t.leftBack);
+      var lf = -0.1 * cos$ * $Basics.toFloat(t.leftFront);
+      var rb = 0.1 * cos$ * $Basics.toFloat(t.rightBack);
+      var rf = -0.1 * cos$ * $Basics.toFloat(t.rightFront);
+      var ls = -0.1 * sin$ * $Basics.toFloat(t.leftSide);
+      var rs = 0.1 * sin$ * $Basics.toFloat(t.rightSide);
+      return ls + lb + lf + main + rf + rb + rs;
+   };
+   return _elm.Thrusters.values = {_op: _op,deltaY: deltaY,deltaX: deltaX,deltaAngular: deltaAngular};
+};

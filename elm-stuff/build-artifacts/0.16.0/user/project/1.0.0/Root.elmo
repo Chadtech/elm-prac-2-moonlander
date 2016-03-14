@@ -1,0 +1,16 @@
+Elm.Root = Elm.Root || {};
+Elm.Root.make = function (_elm) {
+   "use strict";
+   _elm.Root = _elm.Root || {};
+   if (_elm.Root.values) return _elm.Root.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var root = "https://raw.githubusercontent.com/Chadtech-Online-1/Chadtech-Online-1.github.io/master/";
+   return _elm.Root.values = {_op: _op,root: root};
+};

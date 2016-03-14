@@ -1,0 +1,16 @@
+Elm.Ship = Elm.Ship || {};
+Elm.Ship.make = function (_elm) {
+   "use strict";
+   _elm.Ship = _elm.Ship || {};
+   if (_elm.Ship.values) return _elm.Ship.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var Ship = F7(function (a,b,c,d,e,f,g) {    return {x: a,y: b,a: c,vx: d,vy: e,va: f,thrusters: g};});
+   return _elm.Ship.values = {_op: _op,Ship: Ship};
+};

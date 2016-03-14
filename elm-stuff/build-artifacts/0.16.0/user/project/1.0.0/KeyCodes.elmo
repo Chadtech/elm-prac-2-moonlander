@@ -1,0 +1,22 @@
+Elm.KeyCodes = Elm.KeyCodes || {};
+Elm.KeyCodes.make = function (_elm) {
+   "use strict";
+   _elm.KeyCodes = _elm.KeyCodes || {};
+   if (_elm.KeyCodes.values) return _elm.KeyCodes.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var space = 32;
+   var n = 78;
+   var k = 75;
+   var u = 85;
+   var c = 67;
+   var s = 83;
+   var e = 69;
+   return _elm.KeyCodes.values = {_op: _op,e: e,s: s,c: c,u: u,k: k,n: n,space: space};
+};

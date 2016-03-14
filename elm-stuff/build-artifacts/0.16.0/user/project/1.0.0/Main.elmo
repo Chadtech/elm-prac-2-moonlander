@@ -1,0 +1,61 @@
+Elm.Main = Elm.Main || {};
+Elm.Main.make = function (_elm) {
+   "use strict";
+   _elm.Main = _elm.Main || {};
+   if (_elm.Main.values) return _elm.Main.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Graphics$Element = Elm.Graphics.Element.make(_elm),
+   $KeyCodes = Elm.KeyCodes.make(_elm),
+   $Keyboard = Elm.Keyboard.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Set = Elm.Set.make(_elm),
+   $Ship = Elm.Ship.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Thrusters = Elm.Thrusters.make(_elm),
+   $Time = Elm.Time.make(_elm),
+   $View = Elm.View.make(_elm),
+   $Window = Elm.Window.make(_elm);
+   var _op = {};
+   var input = function () {
+      var delta = A2($Signal.map,function (t) {    return t / 40;},$Time.fps(30));
+      return A2($Signal.sampleOn,delta,A3($Signal.map2,F2(function (v0,v1) {    return {ctor: "_Tuple2",_0: v0,_1: v1};}),delta,$Keyboard.keysDown));
+   }();
+   var physics = F2(function (dt,reasey) {
+      return _U.update(reasey,{y: reasey.y + dt * reasey.vy,x: reasey.x + dt * reasey.vx,a: reasey.a + dt * reasey.va});
+   });
+   var gravity = F2(function (dt,reasey) {    return _U.update(reasey,{vy: reasey.vy - dt / 50,vx: reasey.vx - dt / 94});});
+   var thrust = function (reasey) {
+      var dvx = $Thrusters.deltaX(reasey);
+      var dvy = $Thrusters.deltaY(reasey);
+      var dva = $Thrusters.deltaAngular(reasey);
+      return _U.update(reasey,{vy: reasey.vy + 0.5 * dvy,vx: reasey.vx + 0.5 * dvx,va: reasey.va + 0.5 * dva});
+   };
+   var keyPressed = F2(function (key,keys) {    return A2($Set.member,key,keys) ? 1 : 0;});
+   var setThrusters = F2(function (keys,s) {
+      return _U.update(s,
+      {thrusters: {leftFront: A2(keyPressed,$KeyCodes.c,keys)
+                  ,leftSide: A2(keyPressed,$KeyCodes.s,keys)
+                  ,leftBack: A2(keyPressed,$KeyCodes.e,keys)
+                  ,main: A2(keyPressed,$KeyCodes.space,keys)
+                  ,rightFront: A2(keyPressed,$KeyCodes.n,keys)
+                  ,rightSide: A2(keyPressed,$KeyCodes.k,keys)
+                  ,rightBack: A2(keyPressed,$KeyCodes.u,keys)}});
+   });
+   var update = F2(function (_p0,reasey) {    var _p1 = _p0;var _p2 = _p1._0;return A2(physics,_p2,thrust(A2(gravity,_p2,A2(setThrusters,_p1._1,reasey))));});
+   var reasey = {x: 0,y: 0,a: 0,vx: -0.4,vy: 3,va: 0.5,thrusters: {leftFront: 0,leftSide: 0,leftBack: 0,main: 0,rightFront: 0,rightSide: 0,rightBack: 0}};
+   var main = A3($Signal.map2,$View.view,$Window.dimensions,A3($Signal.foldp,update,reasey,input));
+   return _elm.Main.values = {_op: _op
+                             ,reasey: reasey
+                             ,keyPressed: keyPressed
+                             ,setThrusters: setThrusters
+                             ,thrust: thrust
+                             ,gravity: gravity
+                             ,physics: physics
+                             ,update: update
+                             ,main: main
+                             ,input: input};
+};
