@@ -1,5 +1,5 @@
 
-This is a simple moonlander game I made to practice learning Elm Lang. You can play it here: chadtech.us/elm-prac-2
+This is a simple moonlander game I made to practice learning Elm Lang. You can play it here: http://www.chadtech.us/elm-prac-2
 
 
 Import Tree
