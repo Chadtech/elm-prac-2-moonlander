@@ -8,6 +8,9 @@ import Root exposing (..)
 import Ship exposing (..)
 import DrawLander exposing (..)
 
+
+
+
 view : (Int, Int) -> Ship -> Element
 view (w', h') s =
   let 
@@ -36,6 +39,8 @@ view (w', h') s =
       <| root ++ "stars.png"
 
 
+    -- Make a column of the stars tile,
+    -- where each tile is positioned right
     tile   : Float -> List Form
     tile t =
       let 
@@ -46,7 +51,10 @@ view (w', h') s =
         <| List.map (\n -> toFloat n) 
         <| [ 0 .. (h' // 500) + 1 ]
 
-
+    -- Make several columns and rows
+    -- of the star tile, positioned
+    -- according to their column
+    -- and row index
     tiles = 
       List.foldr append []
       <| List.map tile 
