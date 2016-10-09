@@ -1,5 +1,3 @@
-
-
 import Color exposing (..)
 import Graphics.Collage exposing (..)
 import Graphics.Element exposing (..)
@@ -98,7 +96,6 @@ update (dt, keys) reasey =
     |> gravity dt
     |> thrust
     |> physics dt
-
 
 
 main : Signal Element

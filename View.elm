@@ -60,8 +60,7 @@ view (w', h') s =
       <| List.map tile 
       <| List.map (\n -> toFloat n) 
       <| [ 0 .. ((w' // 500) + 1) ]
-      
-
+    
   in
 
     collage w' h' 
